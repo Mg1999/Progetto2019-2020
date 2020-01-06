@@ -1,0 +1,16 @@
+-utente
+-Ristorante
+    +pizzeria
+    +braceria
+    +agriturismo
+    +paninoteca
+    +tosteria
+    +enoteca
+-alloggio
+    +hotel
+    +casa vacanze
+-attrazione
+    +parcoatema
+    +museo
+
+-recensione
