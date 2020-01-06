@@ -1,24 +1,21 @@
+-utente
+-Ristorante
+    +pizzeria
+    +braceria
+    +agriturismo
+    +paninoteca
+    +tosteria
+    +enoteca
+-alloggio
+    +hotel
+    +casa vacanze
+-attrazione
+    +parcoatema
+    +museo
 
-utente
-ristorante:
-pizzeria 
-braceria
-agriturismo
-paninoteca
-tosteria
-enoteca
-altro
-albergo:
-hotel
-motel
-casa
-attrazione:
-parco a tema
-zoo
-museo
-recensione:
-fascia di prezzo
-ideale per
-stelle
-precentuali
-età
+-recensione
+    *fascia di prezzo
+    *ideale per
+    *stelle
+    *precentuali
+    *età
