@@ -1,6 +1,12 @@
+import javax.swing.*;
+
 public class Login {
     private String email;
     private String password;
+    private JPanel panel1;
+    private JTextField textField1;
+    private JPasswordField passwordField1;
+    private JButton loginButton;
 
     public Login(String email, String password) {
         this.email = email;

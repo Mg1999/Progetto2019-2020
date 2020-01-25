@@ -1,7 +1,7 @@
 public class Recensioni {
     private String cucina;
     private String servizio;
-    private String qualitàprezzo;
+    private String qualitaprezzo;
     private String commento;
     private String notacostruttiva;
     private String posizione;
