@@ -2,6 +2,7 @@ public class Utente {
     private String nome;
     private String cognome;
     private String email;
+    private String password;
     private int recensioni_effetuate;
 
     public Utente(){
@@ -37,5 +38,13 @@ public class Utente {
 
     public void setRecensioniEffetuate(int recensioniEffetuate) {
         this.recensioni_effetuate = recensioni_effetuate;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
