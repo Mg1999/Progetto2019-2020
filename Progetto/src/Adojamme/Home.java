@@ -35,34 +35,36 @@ public class Home extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField barra_ricerca;
+	private Controllore controllore_home;
 	
 	
 
 	/**
 	 * Launch the application.
 	 */
-	public static void start() {
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-						Home frame = new Home();
-						frame.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void start() {
+//		
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//						Home frame = new Home();
+//						frame.setVisible(true);
+//					
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 	
 	
 
 	/**
 	 * Create the frame.
 	 */
-	public Home() {
+	public Home(Controllore ctrl) {
 		setTitle("Adojamme");
+		controllore_home = ctrl;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Home.class.getResource("/Images/logohome.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1012, 626);
@@ -82,8 +84,8 @@ public class Home extends JFrame {
 		JButton button_accedi_home = new JButton("Accedi");
 		button_accedi_home.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Login.accediAccount();
-				dispose();
+				controllore_home.acesso();
+				setVisible(false);
 			}
 		});
 		button_accedi_home.setBackground(new Color(51, 102, 51));
@@ -92,7 +94,7 @@ public class Home extends JFrame {
 		JButton button_register_home = new JButton("Registrati");
 		button_register_home.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SingUp.registraAccount();
+				controllore_home.rec();
 				dispose();
 			}
 		});

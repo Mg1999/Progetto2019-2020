@@ -27,28 +27,30 @@ public class SingUp extends JFrame {
 	private JTextField textField_email;
 	private JPasswordField passwordField;
 	int xx, xy;
+	private Controllore controllore_singup;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void registraAccount() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SingUp frame = new SingUp();
-					frame.setUndecorated(true);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void registraAccount() {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					SingUp frame = new SingUp();
+//					frame.setUndecorated(true);
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public SingUp() {
+	public SingUp(Controllore ctrl) {
+		controllore_singup = ctrl;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 904, 576);
 		contentPane = new JPanel();
@@ -142,8 +144,8 @@ public class SingUp extends JFrame {
 		JButton button_registrati = new JButton("Registrazione");
 		button_registrati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				HomeLogRec.posthome();
-				dispose();
+				controllore_singup.Log();
+				setVisible(false);
 			}
 		});
 		button_registrati.setForeground(new Color(255, 255, 255));

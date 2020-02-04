@@ -46,33 +46,36 @@ public class HomeLogRec extends JFrame {
 	private JLabel logo_attrazione;
 	private JScrollPane scrollPane;
 	private JPanel panel_4;
+	private Controllore controllore;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void posthome() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HomeLogRec frame = new HomeLogRec();
-					frame.setVisible(true);
-					Home chiudi = new Home();
-					chiudi.setVisible(false);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void posthome() {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					HomeLogRec frame = new HomeLogRec();
+//					frame.setVisible(true);
+//					Home chiudi = new Home();
+//					chiudi.setVisible(false);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+	
 	
 	
 
 	/**
 	 * Create the frame.
 	 */
-	public HomeLogRec() {
+	public HomeLogRec(Controllore ctrl) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(HomeLogRec.class.getResource("/Images/logohome.png")));
 		setTitle("Adojamme");
+		controllore = ctrl;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 626);
 		contentPane = new JPanel();
@@ -222,7 +225,7 @@ public class HomeLogRec extends JFrame {
 		JButton btnNewButton = new JButton("Recensione");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				RecensioneAllogio.RecAllogio();
+				controllore.recensione();
 			}
 		});
 		btnNewButton.setBackground(new Color(51, 102, 51));

@@ -27,30 +27,32 @@ public class Login extends JFrame {
 	private JTextField email_field_login;
 	private JPasswordField password_Field_Login;
 	int xx,xy;
+	private Controllore controll;
 	
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void accediAccount() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setUndecorated(true);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void accediAccount() {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Login frame = new Login();
+//					frame.setUndecorated(true);
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 	
 
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
+	public Login(Controllore ctrl) {
+		controll = ctrl;
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 505);
@@ -162,8 +164,8 @@ public class Login extends JFrame {
 				password = password_Field_Login.getText();
 				
 			if ((email.equalsIgnoreCase(email_giusta)) && ((password.equals(password_giusta)))) {
-				HomeLogRec.posthome();
-				dispose();
+				controll.Log();
+				setVisible(false);
 			} else {
 					labelerror.setText("e-mail o password errati, riprova");
 			}	
