@@ -1,4 +1,4 @@
-package Adojamme;
+
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -35,6 +35,7 @@ public class Recensione extends JFrame {
 	private JTextField textField;
 	int xx ,xy;
 	private Controllore controllore_recensione;
+	
 
 	/**
 	 * Launch the application.
@@ -58,6 +59,7 @@ public class Recensione extends JFrame {
 	 */
 	public Recensione(Controllore ctrl) {
 		controllore_recensione = ctrl;
+		setUndecorated(true);
 		setTitle("Adojamme");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Recensione.class.getResource("/Images/logohome.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -181,10 +183,34 @@ public class Recensione extends JFrame {
 		contentPane.add(lblNewLabel);
 		contentPane.add(Pannel_tipo_recensione);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"Seleziona", "Allogio", "Attrazione", "Ristorante"}));
+		String[] tipologia = {"Seleziona", "Allogio", "Attrazione", "Ristorante"};
+		
+		JComboBox comboBox_4 = new JComboBox();
+		comboBox_4.setBounds(793, 183, 146, 20);
+		Pannel_tipo_recensione.add(comboBox_4);
+		
+		JComboBox comboBox_3 = new JComboBox(tipologia);
 		comboBox_3.setBounds(793, 110, 146, 20);
 		Pannel_tipo_recensione.add(comboBox_3);
+		comboBox_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = (String)comboBox_3.getSelectedItem();
+				if (name == tipologia[1]) {
+					
+					comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"Seleziona", "Bed&Breakfast", "Ostello", "CasaVacanze", "Hotel"}));
+				}else if (name == tipologia[2]) {
+					
+					comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"Seleziona","Parco a Tema", "Luogo Storico", "Museo", "Sito Archeologico"}));
+					}
+					else if(name == tipologia[3]){
+						comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"Seleziona", "Tosteria", "Paninoteca", "Enoteca", "Pizzeria", "Braceria"}));
+					}
+						
+			}
+		});
+		String name = (String)comboBox_3.getSelectedItem();
+		
+
 		
 		JLabel lblNewLabel_6 = new JLabel("Tipo di recensione");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -195,9 +221,7 @@ public class Recensione extends JFrame {
 		lblNewLabel_5.setBounds(635, 186, 75, 14);
 		Pannel_tipo_recensione.add(lblNewLabel_5);
 		
-		JComboBox comboBox_4 = new JComboBox();
-		comboBox_4.setBounds(793, 183, 146, 20);
-		Pannel_tipo_recensione.add(comboBox_4);
+		
 		
 		JButton btnNewButton_1 = new JButton("X");
 		btnNewButton_1.addActionListener(new ActionListener() {
