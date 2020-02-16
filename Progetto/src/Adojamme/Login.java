@@ -29,30 +29,13 @@ public class Login extends JFrame {
 	int xx,xy;
 	private Controllore controll;
 	
-	
-	/**
-	 * Launch the application.
-	 */
-//	public static void accediAccount() {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Login frame = new Login();
-//					frame.setUndecorated(true);
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-	
 
 	/**
 	 * Create the frame.
 	 */
 	public Login(Controllore ctrl) {
 		controll = ctrl;
+		setUndecorated(true);
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 505);
@@ -76,6 +59,7 @@ public class Login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(51, 102, 51));
@@ -169,7 +153,8 @@ public class Login extends JFrame {
 			} else {
 					labelerror.setText("e-mail o password errati, riprova");
 			}	
-						
+			HomeLogRec imposta = new HomeLogRec(ctrl);
+			imposta.inizializza();		
 				
 				
 				

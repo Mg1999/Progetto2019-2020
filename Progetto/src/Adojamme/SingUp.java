@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
 
 public class SingUp extends JFrame {
 
@@ -29,28 +30,13 @@ public class SingUp extends JFrame {
 	int xx, xy;
 	private Controllore controllore_singup;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void registraAccount() {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					SingUp frame = new SingUp();
-//					frame.setUndecorated(true);
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the frame.
 	 */
 	public SingUp(Controllore ctrl) {
 		controllore_singup = ctrl;
+		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 904, 576);
 		contentPane = new JPanel();
@@ -145,12 +131,14 @@ public class SingUp extends JFrame {
 		button_registrati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controllore_singup.Log();
+				HomeLogRec imposta = new HomeLogRec(ctrl);
+				imposta.inizializza();
 				setVisible(false);
 			}
 		});
 		button_registrati.setForeground(new Color(255, 255, 255));
 		button_registrati.setBackground(new Color(51, 102, 51));
-		button_registrati.setBounds(553, 416, 235, 33);
+		button_registrati.setBounds(553, 476, 235, 33);
 		contentPane.add(button_registrati);
 		
 		JButton button_X = new JButton("X");
@@ -163,6 +151,10 @@ public class SingUp extends JFrame {
 		button_X.setBackground(Color.RED);
 		button_X.setBounds(855, 0, 50, 23);
 		contentPane.add(button_X);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Account per gestori");
+		chckbxNewCheckBox.setBackground(Color.WHITE);
+		chckbxNewCheckBox.setBounds(553, 395, 172, 23);
+		contentPane.add(chckbxNewCheckBox);
 	}
-
 }

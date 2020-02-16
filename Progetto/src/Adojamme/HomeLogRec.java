@@ -30,6 +30,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 public class HomeLogRec extends JFrame {
 
@@ -47,28 +48,18 @@ public class HomeLogRec extends JFrame {
 	private JScrollPane scrollPane;
 	private JPanel panel_4;
 	private Controllore controllore;
+	private String testo;
+	private String recensione;
+	private JTextArea textArea;
+	private JPanel panel_5;
+	private JLabel label;
+	private JLabel label_1;
+	private JPanel panel_6;
+	private JLabel nome;
+	private JLabel immagine;
+	private int premuto;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void posthome() {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					HomeLogRec frame = new HomeLogRec();
-//					frame.setVisible(true);
-//					Home chiudi = new Home();
-//					chiudi.setVisible(false);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 	
-	
-	
-
 	/**
 	 * Create the frame.
 	 */
@@ -76,6 +67,8 @@ public class HomeLogRec extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(HomeLogRec.class.getResource("/Images/logohome.png")));
 		setTitle("Adojamme");
 		controllore = ctrl;
+		this.testo = " ";
+		this.recensione = " ";
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 626);
 		contentPane = new JPanel();
@@ -201,16 +194,61 @@ public class HomeLogRec extends JFrame {
 		panel_4 = new JPanel();
 		panel_4.setBackground(Color.WHITE);
 		scrollPane.setViewportView(panel_4);
-		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
-		gl_panel_4.setHorizontalGroup(
-			gl_panel_4.createParallelGroup(Alignment.TRAILING)
-				.addGap(0, 585, Short.MAX_VALUE)
-		);
-		gl_panel_4.setVerticalGroup(
-			gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 295, Short.MAX_VALUE)
-		);
-		panel_4.setLayout(gl_panel_4);
+		panel_4.setLayout(null);
+		
+		JPanel post = new JPanel();
+		post.setBackground(Color.WHITE);
+		post.setBounds(10, 11, 565, 152);
+		panel_4.add(post);
+		post.setLayout(null);
+		
+		immagine = new JLabel("");
+		immagine.setIcon(null);
+		immagine.setBounds(10, 0, 46, 47);
+		post.add(immagine);
+		
+		
+		nome = new JLabel("");
+		nome.setFont(new Font("Tahoma", Font.BOLD, 10));
+		nome.setBounds(66, 11, 179, 14);
+		post.add(nome);
+		
+		
+		JPanel pannelloPrimo = new JPanel();
+		pannelloPrimo.setBackground(Color.WHITE);
+		pannelloPrimo.setBounds(66, 49, 457, 92);
+		post.add(pannelloPrimo);
+		pannelloPrimo.setLayout(new BorderLayout(0, 0));
+		
+		textArea = new JTextArea();
+		pannelloPrimo.add(textArea, BorderLayout.CENTER);
+		
+		if (premuto == 1) {
+			nome.setText(" Salvatore");
+			immagine.setIcon(new ImageIcon(HomeLogRec.class.getResource("/Images/Senza_titolo (1).png")));
+			textArea.setText(this.recensione);
+		}
+		
+		panel_5 = new JPanel();
+		panel_5.setLayout(null);
+		panel_5.setBackground(Color.WHITE);
+		panel_5.setBounds(10, 174, 565, 152);
+		panel_4.add(panel_5);
+		
+		label = new JLabel("");
+		label.setBounds(10, 0, 46, 47);
+		panel_5.add(label);
+		
+		label_1 = new JLabel("");
+		label_1.setFont(new Font("Tahoma", Font.BOLD, 10));
+		label_1.setBounds(66, 11, 171, 14);
+		panel_5.add(label_1);
+		
+		panel_6 = new JPanel();
+		panel_6.setBackground(Color.WHITE);
+		panel_6.setBounds(66, 49, 457, 92);
+		panel_5.add(panel_6);
+		panel_6.setLayout(new BorderLayout(0, 0));
 		panel_2.setLayout(gl_panel_2);
 		
 		barra_ricerca = new JTextField();
@@ -255,8 +293,56 @@ public class HomeLogRec extends JFrame {
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
+		
+		
 	}
 
+	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 	}
+	
+	public void aggiungi_recensione() {
+		JLabel image = new JLabel();
+		JLabel name = new JLabel();
+		JTextPane area = new JTextPane();
+	}
+	
+	public String getTesto() {
+		return testo;
+	}
+	
+	public String getRecensione() {
+		return recensione;
+	}
+	
+	public void setTesto(String nuovoTesto) {
+		this.testo = nuovoTesto;
+	}
+	
+	public void setRecensione(String nuovaRecensione) {
+		this.recensione = nuovaRecensione;
+	}
+	
+	public void inoltro(String testoRecensione, String nuovoTitolo) {
+		HomeLogRec titolo = new HomeLogRec(controllore);
+		titolo.setTesto(nuovoTitolo);
+		
+		HomeLogRec recensione = new HomeLogRec(controllore);
+		recensione.setTesto(testoRecensione);
+		
+		
+	}
+	
+
+		
+		
+	
+	public int setPremuto() {
+		return this.premuto = 1;
+	}
+	
+	public int inizializza() {
+		return this.premuto = 0;
+	}
+	
 }

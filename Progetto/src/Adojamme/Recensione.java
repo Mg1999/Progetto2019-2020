@@ -1,3 +1,4 @@
+package Adojamme;
 
 
 import java.awt.BorderLayout;
@@ -6,6 +7,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.JTextComponent;
+
 import java.awt.Color;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -27,32 +30,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
+import javax.swing.JTextArea;
 
 public class Recensione extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtTrova;
-	private JTextField textField;
+	private JTextField titoloRecensione;
 	int xx ,xy;
 	private Controllore controllore_recensione;
 	
-
-	/**
-	 * Launch the application.
-	 */
-//	public static void RecAllogio() {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					RecensioneAllogio frame = new RecensioneAllogio();
-//					frame.setUndecorated(true);
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the frame.
@@ -63,7 +50,7 @@ public class Recensione extends JFrame {
 		setTitle("Adojamme");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Recensione.class.getResource("/Images/logohome.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 996, 606);
+		setBounds(180, 195, 996, 606);
 		contentPane = new JPanel();
 		contentPane.addMouseListener(new MouseAdapter() {
 			@Override
@@ -112,70 +99,60 @@ public class Recensione extends JFrame {
 		lblNewLabel_2.setBounds(65, 99, 152, 17);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
-		textField = new JTextField();
-		textField.setBounds(65, 122, 296, 20);
-		textField.setColumns(10);
+		titoloRecensione = new JTextField();
+		titoloRecensione.setBounds(65, 122, 296, 23);
+		titoloRecensione.setColumns(10);
+		
+		String titolo = (String)titoloRecensione.getText();
 		
 		JLabel lblNewLabel_3 = new JLabel("Scrivi la tua recensione");
-		lblNewLabel_3.setBounds(65, 160, 156, 17);
+		lblNewLabel_3.setBounds(65, 232, 156, 17);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(65, 195, 296, 86);
-		
-		JLabel lblNewLabel_4 = new JLabel("Nota costruttiva");
-		lblNewLabel_4.setBounds(65, 308, 113, 17);
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(65, 343, 297, 87);
+		scrollPane.setBounds(65, 267, 296, 86);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(149, 11, 0, 82);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(793, 266, 146, 20);
+		comboBox.setBounds(735, 266, 146, 20);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Nessuno", "1", "2", "3", "4", "5"}));
 		
 		JLabel lblSelezione = new JLabel("da selezionare");
-		lblSelezione.setBounds(635, 266, 96, 17);
+		lblSelezione.setBounds(571, 266, 96, 17);
 		lblSelezione.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(793, 336, 146, 20);
+		comboBox_1.setBounds(735, 336, 146, 20);
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Nessuno", "1", "2", "3", "4", "5"}));
 		
 		JLabel lblServizio = new JLabel("Servizio");
-		lblServizio.setBounds(635, 336, 46, 17);
+		lblServizio.setBounds(571, 336, 46, 17);
 		lblServizio.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(793, 410, 146, 20);
+		comboBox_2.setBounds(735, 410, 146, 20);
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Nessuno", "1", "2", "3", "4", "5"}));
 		
 		JLabel lblQualitprezzo = new JLabel("Qualit\u00E0/prezzo");
-		lblQualitprezzo.setBounds(635, 410, 86, 17);
+		lblQualitprezzo.setBounds(571, 410, 86, 17);
 		lblQualitprezzo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JTextPane textPane_1 = new JTextPane();
-		scrollPane_1.setViewportView(textPane_1);
-		
-		JTextPane textPane = new JTextPane();
-		scrollPane.setViewportView(textPane);
 		Pannel_tipo_recensione.setLayout(null);
 		Pannel_tipo_recensione.add(separator_1);
 		Pannel_tipo_recensione.add(lblNewLabel_1);
-		Pannel_tipo_recensione.add(textField);
+		Pannel_tipo_recensione.add(titoloRecensione);
 		Pannel_tipo_recensione.add(scrollPane);
+		
+		JTextArea testo_r = new JTextArea();
+		scrollPane.setViewportView(testo_r);
 		Pannel_tipo_recensione.add(lblSelezione);
 		Pannel_tipo_recensione.add(lblServizio);
 		Pannel_tipo_recensione.add(lblQualitprezzo);
 		Pannel_tipo_recensione.add(comboBox_1);
 		Pannel_tipo_recensione.add(comboBox);
 		Pannel_tipo_recensione.add(comboBox_2);
-		Pannel_tipo_recensione.add(scrollPane_1);
 		Pannel_tipo_recensione.add(lblNewLabel_3);
-		Pannel_tipo_recensione.add(lblNewLabel_4);
 		Pannel_tipo_recensione.add(lblNewLabel_2);
 		contentPane.setLayout(null);
 		contentPane.add(txtTrova);
@@ -183,14 +160,16 @@ public class Recensione extends JFrame {
 		contentPane.add(lblNewLabel);
 		contentPane.add(Pannel_tipo_recensione);
 		
+		String testoRecensione = (String)testo_r.getText();
+		
 		String[] tipologia = {"Seleziona", "Allogio", "Attrazione", "Ristorante"};
 		
 		JComboBox comboBox_4 = new JComboBox();
-		comboBox_4.setBounds(793, 183, 146, 20);
+		comboBox_4.setBounds(735, 183, 146, 20);
 		Pannel_tipo_recensione.add(comboBox_4);
 		
 		JComboBox comboBox_3 = new JComboBox(tipologia);
-		comboBox_3.setBounds(793, 110, 146, 20);
+		comboBox_3.setBounds(735, 110, 146, 20);
 		Pannel_tipo_recensione.add(comboBox_3);
 		comboBox_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -198,12 +177,15 @@ public class Recensione extends JFrame {
 				if (name == tipologia[1]) {
 					
 					comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"Seleziona", "Bed&Breakfast", "Ostello", "CasaVacanze", "Hotel"}));
+					lblSelezione.setText("Allogio");
 				}else if (name == tipologia[2]) {
 					
 					comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"Seleziona","Parco a Tema", "Luogo Storico", "Museo", "Sito Archeologico"}));
+					lblSelezione.setText("Attrazione");
 					}
 					else if(name == tipologia[3]){
 						comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"Seleziona", "Tosteria", "Paninoteca", "Enoteca", "Pizzeria", "Braceria"}));
+						lblSelezione.setText("Cucina");
 					}
 						
 			}
@@ -214,12 +196,31 @@ public class Recensione extends JFrame {
 		
 		JLabel lblNewLabel_6 = new JLabel("Tipo di recensione");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_6.setBounds(635, 111, 123, 17);
+		lblNewLabel_6.setBounds(571, 111, 123, 17);
 		Pannel_tipo_recensione.add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_5 = new JLabel("Tipologia");
-		lblNewLabel_5.setBounds(635, 186, 75, 14);
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblNewLabel_5.setBounds(571, 186, 75, 14);
 		Pannel_tipo_recensione.add(lblNewLabel_5);
+		
+		JButton btnNewButton_2 = new JButton("Vedi");
+		btnNewButton_2.setForeground(new Color(255, 255, 255));
+		btnNewButton_2.setBackground(new Color(51, 102, 51));
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String name_tip = (String)comboBox_4.getSelectedItem();
+				if (( name_tip == tipologia[0])||(name_tip == null)) {
+					controllore_recensione.errore_inserimento();
+					
+			}else {
+				controllore_recensione.view();
+				}
+				
+		}
+		});
+		btnNewButton_2.setBounds(891, 182, 69, 23);
+		Pannel_tipo_recensione.add(btnNewButton_2);
 		
 		
 		
@@ -235,9 +236,21 @@ public class Recensione extends JFrame {
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton = new JButton("Pubblica");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controllore_recensione.Log();
+				HomeLogRec recensione = new HomeLogRec(ctrl);
+				recensione.inoltro(testoRecensione, titolo);
+				recensione.setPremuto();
+				setVisible(false);
+				
+			}
+		});
 		btnNewButton.setBounds(884, 533, 86, 23);
 		contentPane.add(btnNewButton);
 		btnNewButton.setBackground(new Color(51, 102, 51));
 		btnNewButton.setForeground(new Color(255, 255, 255));
+		
 	}
+	
 }

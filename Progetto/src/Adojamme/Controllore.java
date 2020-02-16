@@ -6,6 +6,8 @@ public class Controllore {
 	Login acessframe;
 	SingUp registrazione;
 	Recensione recens;
+	Errore error;
+	View viewControl;
 	
 	public static void main(String[] args) {
 		Controllore ilcontrollo = new Controllore();
@@ -19,6 +21,8 @@ public class Controllore {
 		acessframe = new Login(this);
 		registrazione = new SingUp(this);
 		recens = new Recensione(this);
+		error = new Errore(this);
+		viewControl = new View(this);
 	}
 	
 
@@ -38,6 +42,14 @@ public class Controllore {
 	
 	public void recensione() {
 		recens.setVisible(true);
+	}
+	
+	public void errore_inserimento() {
+		error.setVisible(true);
+	}
+	
+	public void view() {
+		viewControl.setVisible(true);
 	}
 	
 }
