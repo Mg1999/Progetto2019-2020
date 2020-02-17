@@ -139,15 +139,15 @@ public class Login extends JFrame {
 		button_accedi_login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String email = "AAAA";
-				String email_giusta = "admin";
-				String password = "AAAA";
-				String password_giusta = "admin";
+				String[] controllo = new String[7];
+
 				// ... @ ... . ...
-				email = email_field_login.getText();
-				password = password_Field_Login.getText();
+				String email = email_field_login.getText();
+				String password = password_Field_Login.getText();
 				
-			if ((email.equalsIgnoreCase(email_giusta)) && ((password.equals(password_giusta)))) {
+				Db_demo.dati(controllo, email, password);
+				
+			if ((email.equalsIgnoreCase(controllo[2])) && ((password.equals(controllo[3])))) {
 				controll.Log();
 				setVisible(false);
 			} else {

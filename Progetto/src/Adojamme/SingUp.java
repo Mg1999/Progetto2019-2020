@@ -131,8 +131,6 @@ public class SingUp extends JFrame {
 		button_registrati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controllore_singup.Log();
-				HomeLogRec imposta = new HomeLogRec(ctrl);
-				imposta.inizializza();
 				setVisible(false);
 			}
 		});

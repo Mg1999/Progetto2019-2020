@@ -37,6 +37,8 @@ public class Controllore {
 	}
 	
 	public void rec() {
+		HomeLogRec imposta = new HomeLogRec(this);
+		imposta.inizializza();
 		registrazione.setVisible(true);
 	}
 	

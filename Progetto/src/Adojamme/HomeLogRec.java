@@ -333,9 +333,6 @@ public class HomeLogRec extends JFrame {
 		
 	}
 	
-
-		
-		
 	
 	public int setPremuto() {
 		return this.premuto = 1;
