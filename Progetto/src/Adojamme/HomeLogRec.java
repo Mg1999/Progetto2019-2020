@@ -58,6 +58,7 @@ public class HomeLogRec extends JFrame {
 	private JLabel nome;
 	private JLabel immagine;
 	private int premuto;
+	private JButton btnNewButton_1;
 
 	
 	/**
@@ -268,6 +269,15 @@ public class HomeLogRec extends JFrame {
 		});
 		btnNewButton.setBackground(new Color(51, 102, 51));
 		btnNewButton.setForeground(Color.WHITE);
+		
+		btnNewButton_1 = new JButton("Profilo");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controllore.profiloRecensore();
+			}
+		});
+		btnNewButton_1.setBackground(new Color(51, 102, 51));
+		btnNewButton_1.setForeground(new Color(255, 255, 255));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -275,8 +285,10 @@ public class HomeLogRec extends JFrame {
 					.addGap(20)
 					.addComponent(barra_ricerca, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
 					.addGap(201)
-					.addComponent(label_logo, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-					.addGap(275)
+					.addComponent(label_logo, GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+					.addGap(168)
+					.addComponent(btnNewButton_1)
+					.addGap(18)
 					.addComponent(btnNewButton)
 					.addContainerGap())
 		);
@@ -285,7 +297,9 @@ public class HomeLogRec extends JFrame {
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(14)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnNewButton)
+						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(btnNewButton)
+							.addComponent(btnNewButton_1))
 						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
 							.addComponent(barra_ricerca, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addComponent(label_logo, GroupLayout.PREFERRED_SIZE, 25, Short.MAX_VALUE)))
@@ -323,23 +337,5 @@ public class HomeLogRec extends JFrame {
 		this.recensione = nuovaRecensione;
 	}
 	
-	public void inoltro(String testoRecensione, String nuovoTitolo) {
-		HomeLogRec titolo = new HomeLogRec(controllore);
-		titolo.setTesto(nuovoTitolo);
-		
-		HomeLogRec recensione = new HomeLogRec(controllore);
-		recensione.setTesto(testoRecensione);
-		
-		
-	}
-	
-	
-	public int setPremuto() {
-		return this.premuto = 1;
-	}
-	
-	public int inizializza() {
-		return this.premuto = 0;
-	}
 	
 }

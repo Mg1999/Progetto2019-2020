@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -16,6 +19,8 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
@@ -29,6 +34,7 @@ public class SingUp extends JFrame {
 	private JPasswordField passwordField;
 	int xx, xy;
 	private Controllore controllore_singup;
+
 
 
 	/**
@@ -113,30 +119,87 @@ public class SingUp extends JFrame {
 		contentPane.add(textField_nome);
 		textField_nome.setColumns(10);
 		
+		
 		textField_Cognome = new JTextField();
 		textField_Cognome.setColumns(10);
 		textField_Cognome.setBounds(553, 212, 235, 28);
 		contentPane.add(textField_Cognome);
+		
 		
 		textField_email = new JTextField();
 		textField_email.setColumns(10);
 		textField_email.setBounds(553, 275, 235, 28);
 		contentPane.add(textField_email);
 		
+		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(553, 333, 235, 28);
 		contentPane.add(passwordField);
 		
+		final JCheckBox gestoreCheckBox = new JCheckBox("Account per gestori");
+		gestoreCheckBox.setBackground(Color.WHITE);
+		gestoreCheckBox.setBounds(553, 395, 172, 23);
+		contentPane.add(gestoreCheckBox);
+		
+		JLabel labelErrore = new JLabel("");
+		labelErrore.setForeground(Color.RED);
+		labelErrore.setBounds(553, 445, 235, 14);
+		contentPane.add(labelErrore);
+		
 		JButton button_registrati = new JButton("Registrazione");
 		button_registrati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controllore_singup.Log();
-				setVisible(false);
+				String field_nome = (String)textField_nome.getText();
+				String field_cognome = (String)textField_Cognome.getText();
+				String field_email = (String)textField_email.getText();
+				String field_password =(String) passwordField.getText(); 
+				
+				if(this.validateMail(field_email)) {
+					boolean gestoreSetting = gestoreCheckBox.isSelected();
+				
+					Db database =new Db();
+					database.connect();
+					database.registrazioneQuery(field_nome, field_cognome, field_email, field_password, gestoreSetting);
+					if (gestoreSetting) {
+						controllore_singup.propietario();
+					}else {
+						controllore_singup.Log();	
+					}
+					setVisible(false);
+				}
+				else {
+					labelErrore.setText("email non esistente, ripeovareò");
+				}
 			}
+			/**
+			* Funzione per la validazione di un indirizzo e-mail
+			* @param mail Indirizzo e-mail da validare
+			* @return TRUE se la mail è stata validata correttamente
+			*/
+			public boolean validateMail(String mail)
+			{
+			if (mail == null)
+			{
+			return false;
+			}
+
+			Pattern p = Pattern.compile(".+@.+\\.[a-z]+", Pattern.CASE_INSENSITIVE);
+			Matcher m = p.matcher(mail);
+			boolean matchFound = m.matches();
+
+			//Condizioni più restrittive rispetto alle precedenti
+			String  expressionPlus="^[\\w\\-]([\\.\\w])+[\\w]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+			Pattern pPlus = Pattern.compile(expressionPlus, Pattern.CASE_INSENSITIVE);
+			Matcher mPlus = pPlus.matcher(mail);
+			boolean matchFoundPlus = mPlus.matches();
+			         
+			return matchFound && matchFoundPlus;   
+			}
+			
 		});
 		button_registrati.setForeground(new Color(255, 255, 255));
 		button_registrati.setBackground(new Color(51, 102, 51));
-		button_registrati.setBounds(553, 476, 235, 33);
+		button_registrati.setBounds(553, 499, 235, 33);
 		contentPane.add(button_registrati);
 		
 		JButton button_X = new JButton("X");
@@ -150,9 +213,5 @@ public class SingUp extends JFrame {
 		button_X.setBounds(855, 0, 50, 23);
 		contentPane.add(button_X);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Account per gestori");
-		chckbxNewCheckBox.setBackground(Color.WHITE);
-		chckbxNewCheckBox.setBounds(553, 395, 172, 23);
-		contentPane.add(chckbxNewCheckBox);
 	}
 }

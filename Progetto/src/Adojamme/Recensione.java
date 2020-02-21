@@ -35,7 +35,6 @@ import javax.swing.JTextArea;
 public class Recensione extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtTrova;
 	private JTextField titoloRecensione;
 	int xx ,xy;
 	private Controllore controllore_recensione;
@@ -44,6 +43,7 @@ public class Recensione extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("rawtypes")
 	public Recensione(Controllore ctrl) {
 		controllore_recensione = ctrl;
 		setUndecorated(true);
@@ -70,12 +70,6 @@ public class Recensione extends JFrame {
 		contentPane.setBackground(new Color(102, 102, 102));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
-		txtTrova = new JTextField();
-		txtTrova.setBounds(15, 16, 159, 20);
-		txtTrova.setText("Trova");
-		txtTrova.setForeground(new Color(204, 204, 204));
-		txtTrova.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(429, 16, 139, 25);
@@ -115,6 +109,7 @@ public class Recensione extends JFrame {
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(149, 11, 0, 82);
 		
+		@SuppressWarnings("rawtypes")
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(735, 266, 146, 20);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Nessuno", "1", "2", "3", "4", "5"}));
@@ -122,7 +117,7 @@ public class Recensione extends JFrame {
 		JLabel lblSelezione = new JLabel("da selezionare");
 		lblSelezione.setBounds(571, 266, 96, 17);
 		lblSelezione.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
+		@SuppressWarnings("rawtypes")
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBounds(735, 336, 146, 20);
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Nessuno", "1", "2", "3", "4", "5"}));
@@ -131,6 +126,7 @@ public class Recensione extends JFrame {
 		lblServizio.setBounds(571, 336, 46, 17);
 		lblServizio.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
+		@SuppressWarnings("rawtypes")
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setBounds(735, 410, 146, 20);
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Nessuno", "1", "2", "3", "4", "5"}));
@@ -155,7 +151,6 @@ public class Recensione extends JFrame {
 		Pannel_tipo_recensione.add(lblNewLabel_3);
 		Pannel_tipo_recensione.add(lblNewLabel_2);
 		contentPane.setLayout(null);
-		contentPane.add(txtTrova);
 		contentPane.add(separator);
 		contentPane.add(lblNewLabel);
 		contentPane.add(Pannel_tipo_recensione);
@@ -191,8 +186,6 @@ public class Recensione extends JFrame {
 			}
 		});
 		String name = (String)comboBox_3.getSelectedItem();
-		
-
 		
 		JLabel lblNewLabel_6 = new JLabel("Tipo di recensione");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -239,9 +232,6 @@ public class Recensione extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controllore_recensione.Log();
-				HomeLogRec recensione = new HomeLogRec(ctrl);
-				recensione.inoltro(testoRecensione, titolo);
-				recensione.setPremuto();
 				setVisible(false);
 				
 			}

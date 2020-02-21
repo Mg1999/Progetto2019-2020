@@ -32,6 +32,8 @@ public class Login extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * 
+	 * @param controllore
 	 */
 	public Login(Controllore ctrl) {
 		controll = ctrl;
@@ -40,6 +42,10 @@ public class Login extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 505);
 		contentPane = new JPanel();
+		
+		/**
+		 * Per spostare la finestra
+		 */
 		contentPane.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -47,6 +53,7 @@ public class Login extends JFrame {
 				xy = arg0.getY();
 			}
 		});
+		
 		contentPane.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
@@ -104,11 +111,6 @@ public class Login extends JFrame {
 		contentPane.add(Label_email_login);
 		
 		email_field_login = new JTextField();
-		email_field_login.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//user = email_field_login.getText();
-			}
-		});
 		email_field_login.addKeyListener(new KeyAdapter() {
 			
 		});
@@ -130,37 +132,35 @@ public class Login extends JFrame {
 		
 		JLabel labelerror = new JLabel("");
 		labelerror.setForeground(Color.RED);
-		labelerror.setBounds(519, 302, 137, 14);
+		labelerror.setBounds(484, 302, 321, 14);
 		contentPane.add(labelerror);
-		
-		
 		
 		JButton button_accedi_login = new JButton("Accedi");
 		button_accedi_login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				String[] controllo = new String[7];
 
-				// ... @ ... . ...
-				String email = email_field_login.getText();
-				String password = password_Field_Login.getText();
+				String emailControllo = (String)email_field_login.getText();
+				@SuppressWarnings("deprecation")
+				String passwordControllo = (String)password_Field_Login.getText();
 				
-				Db_demo.dati(controllo, email, password);
-				
-			if ((email.equalsIgnoreCase(controllo[2])) && ((password.equals(controllo[3])))) {
-				controll.Log();
-				setVisible(false);
+				Db database =new Db();
+				database.connect();
+				database.loginQuery(emailControllo ,passwordControllo);
+			if (emailControllo.equalsIgnoreCase((database.getValore1())) && ((passwordControllo.equals(database.getValore2())))) {
+				String id_controllo = database.logConroll(emailControllo);
+					if (id_controllo != null) {
+						controll.Log();
+					}
+					else {
+						controll.propietario();
+					}
+					setVisible(false);
 			} else {
 					labelerror.setText("e-mail o password errati, riprova");
 			}	
-			HomeLogRec imposta = new HomeLogRec(ctrl);
-			imposta.inizializza();		
-				
-				
-				
+
 			}
 		});
-		
 		
 		button_accedi_login.setBackground(new Color(51, 102, 51));
 		button_accedi_login.setForeground(new Color(255, 255, 255));
@@ -178,7 +178,6 @@ public class Login extends JFrame {
 		button_X_Login.setForeground(new Color(255, 255, 255));
 		button_X_Login.setBounds(795, 0, 50, 23);
 		contentPane.add(button_X_Login);
-		
 		
 	}
 	

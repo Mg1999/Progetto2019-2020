@@ -8,6 +8,10 @@ public class Controllore {
 	Recensione recens;
 	Errore error;
 	View viewControl;
+	HomeProprietario proprietario;
+	RecensoreProfilo profiloRecensore;
+	PostStruttura post;
+	ProprietarioProfili profiloProprietario;
 	
 	public static void main(String[] args) {
 		Controllore ilcontrollo = new Controllore();
@@ -23,6 +27,11 @@ public class Controllore {
 		recens = new Recensione(this);
 		error = new Errore(this);
 		viewControl = new View(this);
+		proprietario = new HomeProprietario(this);
+		profiloRecensore = new RecensoreProfilo(this);
+		post = new PostStruttura(this);
+		profiloProprietario = new ProprietarioProfili(this);
+		
 	}
 	
 
@@ -37,8 +46,6 @@ public class Controllore {
 	}
 	
 	public void rec() {
-		HomeLogRec imposta = new HomeLogRec(this);
-		imposta.inizializza();
 		registrazione.setVisible(true);
 	}
 	
@@ -53,5 +60,19 @@ public class Controllore {
 	public void view() {
 		viewControl.setVisible(true);
 	}
+	
+	public void propietario() {
+		proprietario.setVisible(true);
+	}
+	public void profiloRecensore() {
+		profiloRecensore.setVisible(true);
+	}
+	public void struttura() {
+		post.setVisible(true);
+	}
+	public void proprietarioProfilo() {
+		profiloProprietario.setVisible(true);
+	}
+
 	
 }
