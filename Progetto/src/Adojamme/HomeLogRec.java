@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import Calssi.Recensioni;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
@@ -17,6 +19,7 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -31,11 +34,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
+import javax.swing.JTable;
 
 public class HomeLogRec extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField barra_ricerca;
 	private JPanel panel_2;
 	private JLabel label_slide;
 	private JPanel panel_3;
@@ -46,19 +49,12 @@ public class HomeLogRec extends JFrame {
 	private JLabel logo_ristorante;
 	private JLabel logo_attrazione;
 	private JScrollPane scrollPane;
-	private JPanel panel_4;
 	private Controllore controllore;
 	private String testo;
 	private String recensione;
-	private JTextArea textArea;
-	private JPanel panel_5;
-	private JLabel label;
-	private JLabel label_1;
-	private JPanel panel_6;
-	private JLabel nome;
-	private JLabel immagine;
 	private int premuto;
 	private JButton btnNewButton_1;
+	private JTable tabella_recensore;
 
 	
 	/**
@@ -116,14 +112,32 @@ public class HomeLogRec extends JFrame {
 		label_nome_attrazione.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		logo_allogio = new JLabel("");
+		logo_allogio.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 mostra_alloggi();
+			}
+		});
 		logo_allogio.setIcon(new ImageIcon(HomeLogRec.class.getResource("/Images/PowerdByMarco.png")));
 		logo_allogio.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		logo_ristorante = new JLabel("");
+		logo_ristorante.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mostra_ristorante();
+			}
+		});
 		logo_ristorante.setIcon(new ImageIcon(HomeLogRec.class.getResource("/Images/PoweredByVittorio.png")));
 		logo_ristorante.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		logo_attrazione = new JLabel("");
+		logo_attrazione.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mostra_attrazione();
+			}
+		});
 		logo_attrazione.setIcon(new ImageIcon(HomeLogRec.class.getResource("/Images/PoweredByAntonio.png")));
 		logo_attrazione.setHorizontalAlignment(SwingConstants.CENTER);
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
@@ -168,15 +182,26 @@ public class HomeLogRec extends JFrame {
 		panel_3.setLayout(gl_panel_3);
 		
 		scrollPane = new JScrollPane();
+		
+		JButton btnNewButton_2 = new JButton("Mostra recensioni");
+		btnNewButton_2.setForeground(new Color(255, 255, 255));
+		btnNewButton_2.setBackground(new Color(51, 102, 51));
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostra_recensioni();
+			}
+		});
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addComponent(label_slide, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 885, Short.MAX_VALUE)
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
+			gl_panel_2.createParallelGroup(Alignment.TRAILING)
+				.addComponent(label_slide, GroupLayout.PREFERRED_SIZE, 974, Short.MAX_VALUE)
+				.addGroup(gl_panel_2.createSequentialGroup()
 					.addContainerGap(220, Short.MAX_VALUE)
 					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 525, GroupLayout.PREFERRED_SIZE)
-					.addGap(229))
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
+					.addGap(31)
+					.addComponent(btnNewButton_2)
+					.addGap(109))
+				.addGroup(gl_panel_2.createSequentialGroup()
 					.addGap(202)
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
 					.addGap(185))
@@ -185,77 +210,35 @@ public class HomeLogRec extends JFrame {
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addComponent(label_slide, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-					.addGap(10)
-					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(10)
+							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(37)
+							.addComponent(btnNewButton_2)))
 					.addGap(36)
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		
-		panel_4 = new JPanel();
-		panel_4.setBackground(Color.WHITE);
-		scrollPane.setViewportView(panel_4);
-		panel_4.setLayout(null);
-		
-		JPanel post = new JPanel();
-		post.setBackground(Color.WHITE);
-		post.setBounds(10, 11, 565, 152);
-		panel_4.add(post);
-		post.setLayout(null);
-		
-		immagine = new JLabel("");
-		immagine.setIcon(null);
-		immagine.setBounds(10, 0, 46, 47);
-		post.add(immagine);
-		
-		
-		nome = new JLabel("");
-		nome.setFont(new Font("Tahoma", Font.BOLD, 10));
-		nome.setBounds(66, 11, 179, 14);
-		post.add(nome);
-		
-		
-		JPanel pannelloPrimo = new JPanel();
-		pannelloPrimo.setBackground(Color.WHITE);
-		pannelloPrimo.setBounds(66, 49, 457, 92);
-		post.add(pannelloPrimo);
-		pannelloPrimo.setLayout(new BorderLayout(0, 0));
-		
-		textArea = new JTextArea();
-		pannelloPrimo.add(textArea, BorderLayout.CENTER);
-		
-		if (premuto == 1) {
-			nome.setText(" Salvatore");
-			immagine.setIcon(new ImageIcon(HomeLogRec.class.getResource("/Images/Senza_titolo (1).png")));
-			textArea.setText(this.recensione);
-		}
-		
-		panel_5 = new JPanel();
-		panel_5.setLayout(null);
-		panel_5.setBackground(Color.WHITE);
-		panel_5.setBounds(10, 174, 565, 152);
-		panel_4.add(panel_5);
-		
-		label = new JLabel("");
-		label.setBounds(10, 0, 46, 47);
-		panel_5.add(label);
-		
-		label_1 = new JLabel("");
-		label_1.setFont(new Font("Tahoma", Font.BOLD, 10));
-		label_1.setBounds(66, 11, 171, 14);
-		panel_5.add(label_1);
-		
-		panel_6 = new JPanel();
-		panel_6.setBackground(Color.WHITE);
-		panel_6.setBounds(66, 49, 457, 92);
-		panel_5.add(panel_6);
-		panel_6.setLayout(new BorderLayout(0, 0));
+		tabella_recensore = new JTable();
+		tabella_recensore.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nome struttura", "Indirizzo", "Tipologia", "Titolo recensione", "Recensione", "Valutazione"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, true, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		scrollPane.setViewportView(tabella_recensore);
 		panel_2.setLayout(gl_panel_2);
-		
-		barra_ricerca = new JTextField();
-		barra_ricerca.setText("Trova");
-		barra_ricerca.setForeground(new Color(204, 204, 204));
-		barra_ricerca.setColumns(10);
 		
 		JLabel label_logo = new JLabel("");
 		label_logo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -282,10 +265,8 @@ public class HomeLogRec extends JFrame {
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(20)
-					.addComponent(barra_ricerca, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
-					.addGap(201)
-					.addComponent(label_logo, GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+					.addGap(377)
+					.addComponent(label_logo, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
 					.addGap(168)
 					.addComponent(btnNewButton_1)
 					.addGap(18)
@@ -300,9 +281,7 @@ public class HomeLogRec extends JFrame {
 						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 							.addComponent(btnNewButton)
 							.addComponent(btnNewButton_1))
-						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(barra_ricerca, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(label_logo, GroupLayout.PREFERRED_SIZE, 25, Short.MAX_VALUE)))
+						.addComponent(label_logo, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
@@ -336,6 +315,81 @@ public class HomeLogRec extends JFrame {
 	public void setRecensione(String nuovaRecensione) {
 		this.recensione = nuovaRecensione;
 	}
+	public ArrayList<Recensioni> listaRecensioni(){
+		Db database = new Db();
+		return database.recensoreprofiloTutte2();
+	}
+	public void mostra_recensioni() {
+		ArrayList<Recensioni> list = listaRecensioni();
+		DefaultTableModel model = (DefaultTableModel)tabella_recensore.getModel();
+		model.setRowCount(0);
+		Object[] row = new Object[6];
+		for (int i = 0; i<list.size();i++) {
+			row[0] = list.get(i).getNome_struttura();
+			row[1] = list.get(i).getIndirizzo();
+			row[2] = list.get(i).getTipologia();
+			row[3] = list.get(i).getTitolo_recensione();
+			row[4] = list.get(i).getRecensione();
+			row[5] = list.get(i).getValutazione();
+			model.addRow(row);
+		}
+ 	}
 	
-	
+	public ArrayList<Recensioni> lista_allogio(){
+		Db database = new Db();
+		return database.FiltroAlloggio();
+	}
+	public void mostra_alloggi() {
+		ArrayList<Recensioni> list = lista_allogio();
+		DefaultTableModel model = (DefaultTableModel)tabella_recensore.getModel();
+		model.setRowCount(0);
+		Object[] row = new Object[6];
+		for (int i = 0; i<list.size();i++) {
+			row[0] = list.get(i).getNome_struttura();
+			row[1] = list.get(i).getIndirizzo();
+			row[2] = list.get(i).getTipologia();
+			row[3] = list.get(i).getTitolo_recensione();
+			row[4] = list.get(i).getRecensione();
+			row[5] = list.get(i).getValutazione();
+			model.addRow(row);
+		}
+ 	}
+	public ArrayList<Recensioni> lista_attrazione(){
+		Db database = new Db();
+		return database.FiltroAttrazione();
+	}
+	public void mostra_attrazione() {
+		ArrayList<Recensioni> list = lista_attrazione();
+		DefaultTableModel model = (DefaultTableModel)tabella_recensore.getModel();
+		model.setRowCount(0);
+		Object[] row = new Object[6];
+		for (int i = 0; i<list.size();i++) {
+			row[0] = list.get(i).getNome_struttura();
+			row[1] = list.get(i).getIndirizzo();
+			row[2] = list.get(i).getTipologia();
+			row[3] = list.get(i).getTitolo_recensione();
+			row[4] = list.get(i).getRecensione();
+			row[5] = list.get(i).getValutazione();
+			model.addRow(row);
+		}
+ 	}
+	public ArrayList<Recensioni> lista_ristorante(){
+		Db database = new Db();
+		return database.FiltroRistorante();
+	}
+	public void mostra_ristorante() {
+		ArrayList<Recensioni> list = lista_ristorante();
+		DefaultTableModel model = (DefaultTableModel)tabella_recensore.getModel();
+		model.setRowCount(0);
+		Object[] row = new Object[6];
+		for (int i = 0; i<list.size();i++) {
+			row[0] = list.get(i).getNome_struttura();
+			row[1] = list.get(i).getIndirizzo();
+			row[2] = list.get(i).getTipologia();
+			row[3] = list.get(i).getTitolo_recensione();
+			row[4] = list.get(i).getRecensione();
+			row[5] = list.get(i).getValutazione();
+			model.addRow(row);
+		}
+ 	}
 }

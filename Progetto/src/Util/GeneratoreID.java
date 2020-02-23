@@ -34,5 +34,12 @@ public class GeneratoreID {
 		}
 		return result.toString();
 	}
-	
+	public static String generatoreCodiceRecensione() {
+		StringBuilder result = new StringBuilder();
+		result.append("4");
+		for(int i=0;i<7;i++) {
+			result.append(ALFANUMERICHE[new Random().nextInt(ALFANUMERICHE.length)]);
+		}
+		return result.toString();
+	}
 }

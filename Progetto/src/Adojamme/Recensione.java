@@ -1,14 +1,11 @@
 package Adojamme;
 
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
-
 import java.awt.Color;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -129,7 +126,7 @@ public class Recensione extends JFrame {
 		@SuppressWarnings("rawtypes")
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setBounds(735, 410, 146, 20);
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Nessuno", "1", "2", "3", "4", "5"}));
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2", "3", "4", "5"}));
 		
 		JLabel lblQualitprezzo = new JLabel("Qualit\u00E0/prezzo");
 		lblQualitprezzo.setBounds(571, 410, 86, 17);
@@ -182,11 +179,12 @@ public class Recensione extends JFrame {
 						comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"Seleziona", "Tosteria", "Paninoteca", "Enoteca", "Pizzeria", "Braceria"}));
 						lblSelezione.setText("Cucina");
 					}
-						
+					
 			}
 		});
+		@SuppressWarnings("unused")
 		String name = (String)comboBox_3.getSelectedItem();
-		
+	
 		JLabel lblNewLabel_6 = new JLabel("Tipo di recensione");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_6.setBounds(571, 111, 123, 17);
@@ -197,12 +195,13 @@ public class Recensione extends JFrame {
 		lblNewLabel_5.setBounds(571, 186, 75, 14);
 		Pannel_tipo_recensione.add(lblNewLabel_5);
 		
-		JButton btnNewButton_2 = new JButton("Vedi");
-		btnNewButton_2.setForeground(new Color(255, 255, 255));
-		btnNewButton_2.setBackground(new Color(51, 102, 51));
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton bottoneVedi = new JButton("Vedi");
+		bottoneVedi.setForeground(new Color(255, 255, 255));
+		bottoneVedi.setBackground(new Color(51, 102, 51));
+		bottoneVedi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String name_tip = (String)comboBox_4.getSelectedItem();
+				Db.tipologia_strutture = name_tip;
 				if (( name_tip == tipologia[0])||(name_tip == null)) {
 					controllore_recensione.errore_inserimento();
 					
@@ -212,8 +211,13 @@ public class Recensione extends JFrame {
 				
 		}
 		});
-		btnNewButton_2.setBounds(891, 182, 69, 23);
-		Pannel_tipo_recensione.add(btnNewButton_2);
+		bottoneVedi.setBounds(891, 182, 69, 23);
+		Pannel_tipo_recensione.add(bottoneVedi);
+		
+		JLabel avvisoErrore = new JLabel("");
+		avvisoErrore.setForeground(Color.RED);
+		avvisoErrore.setBounds(65, 413, 313, 14);
+		Pannel_tipo_recensione.add(avvisoErrore);
 		
 		
 		
@@ -231,8 +235,31 @@ public class Recensione extends JFrame {
 		JButton btnNewButton = new JButton("Pubblica");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controllore_recensione.Log();
-				setVisible(false);
+				String titolo = (String)titoloRecensione.getText();
+				String testo = (String)testo_r.getText();
+				String tipologia = (String)comboBox_4.getSelectedItem();
+				String servizio = (String)comboBox_1.getSelectedItem();
+				String qualita= (String)comboBox_2.getSelectedItem();
+				String selezionare = (String)comboBox.getSelectedItem();
+				Db database =new Db();
+				database.connect();
+				String id_struttura = Db.id_struttura;
+				String id_recensore = database.postControllRecensione();
+				int recensione_check = database.cercarecenioni(id_recensore, id_struttura);
+				if(recensione_check == 1) {
+					avvisoErrore.setText("recensione già effettuata");
+				}
+				else {
+					database.postaRecensioneQuery( titolo, testo, tipologia, servizio, qualita, selezionare);
+					controllore_recensione.Log();
+					setVisible(false);
+					titoloRecensione.setText("");
+					testo_r.setText("");
+					comboBox_4.setSelectedIndex(0);
+					comboBox_1.setSelectedIndex(0);
+					comboBox_2.setSelectedIndex(0);
+					comboBox.setSelectedIndex(0);
+				}
 				
 			}
 		});

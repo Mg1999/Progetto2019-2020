@@ -17,6 +17,8 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -31,6 +33,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import Calssi.Recensioni;
 
 public class ProprietarioProfili extends JFrame {
 
@@ -40,24 +46,19 @@ public class ProprietarioProfili extends JFrame {
 	private JLabel label_slide;
 	private JPanel panel_3;
 	private JScrollPane scrollPane;
-	private JPanel panel_4;
 	private Controllore controllore;
 	private String testo;
 	private String recensione;
-	private JTextArea textArea;
-	private JPanel panel_5;
-	private JLabel label;
-	private JLabel label_1;
-	private JPanel panel_6;
-	private JLabel nome;
-	private JLabel immagine;
 	private int premuto;
 	private JLabel lblNewLabel;
+	private JButton btnNewButton_1;
+	private JTable tabella_post;
 
 	
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("serial")
 	public ProprietarioProfili(Controllore ctrl) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(HomeLogRec.class.getResource("/Images/logohome.png")));
 		setTitle("Adojamme");
@@ -118,6 +119,15 @@ public class ProprietarioProfili extends JFrame {
 		panel_3.setLayout(gl_panel_3);
 		
 		scrollPane = new JScrollPane();
+		
+		btnNewButton_1 = new JButton("mostra Post");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostra_proprietario();
+			}
+		});
+		btnNewButton_1.setBackground(new Color(51, 102, 51));
+		btnNewButton_1.setForeground(new Color(255, 255, 255));
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.TRAILING)
@@ -125,7 +135,9 @@ public class ProprietarioProfili extends JFrame {
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addGap(220)
 					.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
-					.addGap(229))
+					.addGap(79)
+					.addComponent(btnNewButton_1)
+					.addGap(61))
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addGap(202)
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
@@ -135,71 +147,35 @@ public class ProprietarioProfili extends JFrame {
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addComponent(label_slide, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-					.addGap(10)
-					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-					.addGap(36)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(10)
+							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+							.addGap(36)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(38)
+							.addComponent(btnNewButton_1)))
 					.addContainerGap())
 		);
 		
-		panel_4 = new JPanel();
-		panel_4.setBackground(Color.WHITE);
-		scrollPane.setViewportView(panel_4);
-		panel_4.setLayout(null);
+		tabella_post = new JTable();
+		tabella_post.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nome struttura", "Indirizzo", "Tipologia", "Titolo recensione", "Recensione", "Valutazione"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		scrollPane.setViewportView(tabella_post);
 		
-		JPanel post = new JPanel();
-		post.setBackground(Color.WHITE);
-		post.setBounds(10, 11, 565, 152);
-		panel_4.add(post);
-		post.setLayout(null);
-		
-		immagine = new JLabel("");
-		immagine.setIcon(null);
-		immagine.setBounds(10, 0, 46, 47);
-		post.add(immagine);
-		
-		
-		nome = new JLabel("");
-		nome.setFont(new Font("Tahoma", Font.BOLD, 10));
-		nome.setBounds(66, 11, 179, 14);
-		post.add(nome);
-		
-		
-		JPanel pannelloPrimo = new JPanel();
-		pannelloPrimo.setBackground(Color.WHITE);
-		pannelloPrimo.setBounds(66, 49, 457, 92);
-		post.add(pannelloPrimo);
-		pannelloPrimo.setLayout(new BorderLayout(0, 0));
-		
-		textArea = new JTextArea();
-		pannelloPrimo.add(textArea, BorderLayout.CENTER);
-		
-		if (premuto == 1) {
-			nome.setText(" Salvatore");
-			immagine.setIcon(new ImageIcon(HomeLogRec.class.getResource("/Images/Senza_titolo (1).png")));
-			textArea.setText(this.recensione);
-		}
-		
-		panel_5 = new JPanel();
-		panel_5.setLayout(null);
-		panel_5.setBackground(Color.WHITE);
-		panel_5.setBounds(10, 174, 565, 152);
-		panel_4.add(panel_5);
-		
-		label = new JLabel("");
-		label.setBounds(10, 0, 46, 47);
-		panel_5.add(label);
-		
-		label_1 = new JLabel("");
-		label_1.setFont(new Font("Tahoma", Font.BOLD, 10));
-		label_1.setBounds(66, 11, 171, 14);
-		panel_5.add(label_1);
-		
-		panel_6 = new JPanel();
-		panel_6.setBackground(Color.WHITE);
-		panel_6.setBounds(66, 49, 457, 92);
-		panel_5.add(panel_6);
-		panel_6.setLayout(new BorderLayout(0, 0));
 		panel_2.setLayout(gl_panel_2);
 		
 		barra_ricerca = new JTextField();
@@ -273,6 +249,23 @@ public class ProprietarioProfili extends JFrame {
 	public void setRecensione(String nuovaRecensione) {
 		this.recensione = nuovaRecensione;
 	}
-	
-	
+	public ArrayList<Proprietario> listaProprietario(){
+		Db database = new Db();
+		return database.proprietarioProfilo();
+	}
+	public void mostra_proprietario() {
+		ArrayList<Proprietario> list = listaProprietario();
+		DefaultTableModel model = (DefaultTableModel)tabella_post.getModel();
+		model.setRowCount(0);
+		Object[] row = new Object[6];
+		for (int i = 0; i<list.size();i++) {
+			row[0] = list.get(i).getNome_struttura();
+			row[1] = list.get(i).getIndirizzo();
+			row[2] = list.get(i).getTipologia_struttura();
+			row[3] = list.get(i).getTitolo_recensione();
+			row[4] = list.get(i).getRecensione();
+			row[5] = list.get(i).getValutazione();
+			model.addRow(row);
+		}
+ 	}
 }

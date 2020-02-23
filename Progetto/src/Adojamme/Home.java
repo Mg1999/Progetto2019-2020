@@ -2,7 +2,6 @@ package Adojamme;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,10 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import java.awt.Window;
-
 import javax.swing.JTextField;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -29,54 +28,31 @@ import javax.swing.JTextPane;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import Calssi.Recensioni;
 import javax.swing.ListSelectionModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Home extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField barra_ricerca;
 	private Controllore controllore_home;
-	
-	
-
-	/**
-	 * Launch the application.
-	 */
-//	public static void start() {
-//		
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//						Home frame = new Home();
-//						frame.setVisible(true);
-//					
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-	
-	
+	private JTable tabella_recensore;
 
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("serial")
 	public Home(Controllore ctrl) {
 		setTitle("Adojamme");
 		controllore_home = ctrl;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Home.class.getResource("/Images/logohome.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1012, 626);
+		setBounds(100, 100, 1055, 626);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(102, 102, 102));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
-		barra_ricerca = new JTextField();
-		barra_ricerca.setText("Trova");
-		barra_ricerca.setForeground(Color.LIGHT_GRAY);
-		barra_ricerca.setColumns(10);
 		
 		JLabel label_logo = new JLabel("");
 		label_logo.setIcon(new ImageIcon(Home.class.getResource("/Images/logohome.png")));
@@ -111,14 +87,12 @@ public class Home extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
+						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(barra_ricerca, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(separator, GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+							.addGap(157)
+							.addComponent(separator, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(label_logo, GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+							.addComponent(label_logo, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
 							.addGap(250)
 							.addComponent(button_accedi_home)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -139,12 +113,10 @@ public class Home extends JFrame {
 							.addContainerGap()
 							.addComponent(label_logo, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(11)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(separator, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
-								.addComponent(barra_ricerca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+							.addGap(20)
+							.addComponent(separator, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)))
 					.addGap(18)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE))
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
@@ -156,17 +128,29 @@ public class Home extends JFrame {
 		panel_1.setBackground(Color.WHITE);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		
+		JButton btnNewButton = new JButton("Mostra recendsioni");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostra_recensioni();
+			}
+		});
+		btnNewButton.setBackground(new Color(51, 102, 51));
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addComponent(lblNewLabel_1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 917, Short.MAX_VALUE)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 1025, Short.MAX_VALUE)
+				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(225)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 245, Short.MAX_VALUE)
-					.addGap(232))
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 534, Short.MAX_VALUE)
+					.addGap(73)
+					.addComponent(btnNewButton)
+					.addGap(70))
+				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(198)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
 					.addGap(193))
 		);
 		gl_panel.setVerticalGroup(
@@ -174,43 +158,58 @@ public class Home extends JFrame {
 				.addGroup(gl_panel.createSequentialGroup()
 					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnNewButton))
 					.addGap(48)
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
 					.addGap(25))
 		);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.WHITE);
-		scrollPane.setViewportView(panel_2);
-		
-		JSeparator separator_1 = new JSeparator();
-		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(20)
-					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(1169, Short.MAX_VALUE))
-		);
-		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(158)
-					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(92, Short.MAX_VALUE))
-		);
-		panel_2.setLayout(gl_panel_2);
+		tabella_recensore = new JTable();
+		tabella_recensore.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nome Struttura", "Indirizzo", "Tipologia", "Titolo Recensione", "Recensione", "Valutazione"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		scrollPane.setViewportView(tabella_recensore);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 mostra_alloggi();
+			}
+		});
 		lblNewLabel_2.setIcon(new ImageIcon(Home.class.getResource("/Images/PowerdByMarco.png")));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel label = new JLabel("");
+		label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mostra_ristorante();
+			}
+		});
 		label.setIcon(new ImageIcon(Home.class.getResource("/Images/PoweredByVittorio.png")));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel label_1 = new JLabel("");
+		label_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mostra_attrazione();
+			}
+		});
 		label_1.setIcon(new ImageIcon(Home.class.getResource("/Images/PoweredByAntonio.png")));
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		
@@ -266,4 +265,80 @@ public class Home extends JFrame {
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 	}
+	public ArrayList<Recensioni> listaRecensioni(){
+		Db database = new Db();
+		return database.recensoreprofiloTutte2();
+	}
+	public void mostra_recensioni() {
+		ArrayList<Recensioni> list = listaRecensioni();
+		DefaultTableModel model = (DefaultTableModel)tabella_recensore.getModel();
+		model.setRowCount(0);
+		Object[] row = new Object[6];
+		for (int i = 0; i<list.size();i++) {
+			row[0] = list.get(i).getNome_struttura();
+			row[1] = list.get(i).getIndirizzo();
+			row[2] = list.get(i).getTipologia();
+			row[3] = list.get(i).getTitolo_recensione();
+			row[4] = list.get(i).getRecensione();
+			row[5] = list.get(i).getValutazione();
+			model.addRow(row);
+		}
+ 	}
+	public ArrayList<Recensioni> lista_allogio(){
+		Db database = new Db();
+		return database.FiltroAlloggio();
+	}
+	public void mostra_alloggi() {
+		ArrayList<Recensioni> list = lista_allogio();
+		DefaultTableModel model = (DefaultTableModel)tabella_recensore.getModel();
+		model.setRowCount(0);
+		Object[] row = new Object[6];
+		for (int i = 0; i<list.size();i++) {
+			row[0] = list.get(i).getNome_struttura();
+			row[1] = list.get(i).getIndirizzo();
+			row[2] = list.get(i).getTipologia();
+			row[3] = list.get(i).getTitolo_recensione();
+			row[4] = list.get(i).getRecensione();
+			row[5] = list.get(i).getValutazione();
+			model.addRow(row);
+		}
+ 	}
+	public ArrayList<Recensioni> lista_attrazione(){
+		Db database = new Db();
+		return database.FiltroAttrazione();
+	}
+	public void mostra_attrazione() {
+		ArrayList<Recensioni> list = lista_attrazione();
+		DefaultTableModel model = (DefaultTableModel)tabella_recensore.getModel();
+		model.setRowCount(0);
+		Object[] row = new Object[6];
+		for (int i = 0; i<list.size();i++) {
+			row[0] = list.get(i).getNome_struttura();
+			row[1] = list.get(i).getIndirizzo();
+			row[2] = list.get(i).getTipologia();
+			row[3] = list.get(i).getTitolo_recensione();
+			row[4] = list.get(i).getRecensione();
+			row[5] = list.get(i).getValutazione();
+			model.addRow(row);
+		}
+ 	}
+	public ArrayList<Recensioni> lista_ristorante(){
+		Db database = new Db();
+		return database.FiltroRistorante();
+	}
+	public void mostra_ristorante() {
+		ArrayList<Recensioni> list = lista_ristorante();
+		DefaultTableModel model = (DefaultTableModel)tabella_recensore.getModel();
+		model.setRowCount(0);
+		Object[] row = new Object[6];
+		for (int i = 0; i<list.size();i++) {
+			row[0] = list.get(i).getNome_struttura();
+			row[1] = list.get(i).getIndirizzo();
+			row[2] = list.get(i).getTipologia();
+			row[3] = list.get(i).getTitolo_recensione();
+			row[4] = list.get(i).getRecensione();
+			row[5] = list.get(i).getValutazione();
+			model.addRow(row);
+		}
+ 	}
 }

@@ -6,9 +6,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-
-
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -159,17 +156,21 @@ public class SingUp extends JFrame {
 				
 					Db database =new Db();
 					database.connect();
-					database.registrazioneQuery(field_nome, field_cognome, field_email, field_password, gestoreSetting);
-					if (gestoreSetting) {
-						controllore_singup.propietario();
-					}else {
-						controllore_singup.Log();	
-					}
-					setVisible(false);
-				}
-				else {
-					labelErrore.setText("email non esistente, ripeovareò");
-				}
+					if((database.cercaEmail())== 1) {
+						database.registrazioneQuery(field_nome, field_cognome, field_email, field_password, gestoreSetting);
+						if (gestoreSetting) {
+								controllore_singup.propietario();
+						}else {
+							controllore_singup.Log();	
+						}
+						setVisible(false);
+				
+			}else {
+				labelErrore.setText("email esistente");
+			}
+			}else {
+				labelErrore.setText("email non esistente, ripeovareò");
+			}
 			}
 			/**
 			* Funzione per la validazione di un indirizzo e-mail
